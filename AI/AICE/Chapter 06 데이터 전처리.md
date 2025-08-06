@@ -330,10 +330,22 @@ df_standard = scaler.fit_transform(df[['A']])
 
 ## Section 04. 변수 선택하기 (Feature Selection)
 
+### 변수 선택이 중요한 이유
+- 데이터에 불필요한 변수가 많으면 과적합 위험이 증가하고 학습 속도가 느려집니다.
+- 모델 해석력을 높이기 위해 꼭 필요한 변수만 골라내는 것이 중요합니다.
+
+---
+
 ### 1. RFE (Recursive Feature Elimination)
 
-* 모델이 중요하지 않다고 판단한 피처를 반복적으로 제거하여 최적의 피처 subset을 선택
-* 보통 성능이 떨어지지 않으면서도 피처 수를 줄일 수 있음
+#### 개념
+- 모델이 중요하지 않다고 판단한 피처를 반복적으로 제거하여 최적의 피처 subset을 선택합니다.
+- 성능을 유지하면서 피처 수를 줄일 수 있습니다.
+
+#### 실무 예시
+- 고객 이탈 예측에서 '가입 기간', '고객 등급', '최근 접속 일자'만 남기는 방식
+
+#### 코드 예시
 
 ```python
 from sklearn.feature_selection import RFE
@@ -344,26 +356,55 @@ rfe = RFE(model, n_features_to_select=3)
 X_rfe = rfe.fit_transform(X, y)
 ```
 
+---
+
 ### 2. RFE-CV (RFE with Cross-Validation)
 
-* RFE 과정에서 교차 검증을 수행하여 가장 성능이 좋은 피처 조합을 자동으로 선택
-* 하이퍼파라미터 튜닝 없이 안정적 선택 가능
+#### 개념
+- RFE 과정에서 교차 검증을 수행하여 가장 성능이 좋은 피처 조합을 자동으로 선택합니다.
+- 변수 수를 미리 지정할 필요 없이 최적 조합을 찾아냅니다.
+
+#### 실무 예시
+- 20개의 변수 중 몇 개를 쓰는 것이 가장 좋은지 애매할 때 자동으로 선택
+
+#### 코드 예시
 
 ```python
 from sklearn.feature_selection import RFECV
+
 rfecv = RFECV(estimator=model, cv=5)
 X_rfecv = rfecv.fit_transform(X, y)
 ```
 
+---
+
 ### 3. UFS (Univariate Feature Selection)
 
-* 각 피처를 독립적으로 통계 검정 후 우수한 피처만 선택
-* chi2 (카이제곱), f\_classif 등의 함수 사용 가능
+#### 개념
+- 각 피처를 독립적으로 통계 검정한 후 우수한 피처만 선택합니다.
+- 카이제곱(chi2), f_classif 등을 사용합니다.
+
+#### 실무 예시
+- 당뇨 예측에서 혈압과 혈당만이 통계적으로 유의하다면 그 두 변수만 선택
+
+#### 코드 예시
 
 ```python
 from sklearn.feature_selection import SelectKBest, chi2
+
 selector = SelectKBest(score_func=chi2, k=5)
 X_new = selector.fit_transform(X, y)
 ```
+
+---
+
+### 세 가지 기법 비교
+
+| 항목      | RFE                              | RFE-CV                             | UFS                                 |
+|-----------|----------------------------------|------------------------------------|--------------------------------------|
+| 방식      | 중요도 낮은 변수부터 제거        | 변수 수를 교차검증으로 자동 최적화 | 변수별 통계검정 후 상위만 선택       |
+| 장점      | 변수 간 관계 고려                | 변수 수 선택 자동화                | 계산 빠름, 해석 쉬움                 |
+| 단점      | 변수 수 지정 필요                | 계산 비용 큼                        | 변수 간 상호작용 고려 불가           |
+| 실무 적용 | 모델 성능 유지하며 변수 줄이기    | 최적 변수 개수까지 자동 선택        | 변수 수 많을 때 빠른 사전 정제용     |
 
 ---
