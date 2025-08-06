@@ -263,11 +263,9 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 
 ### 과적합 현상 예시
 - Train Accuracy ↑, Validation Accuracy ↓
+    <img width="567" height="455" alt="image" src="https://github.com/user-attachments/assets/d2b57cd9-bd00-4a2a-abbc-d8d357c9245d" />
 - Train Loss ↓, Validation Loss ↑
-
-  <img width="567" height="455" alt="image" src="https://github.com/user-attachments/assets/d2b57cd9-bd00-4a2a-abbc-d8d357c9245d" />
-
-
+    <img width="567" height="455" alt="image" src="https://github.com/user-attachments/assets/e9587e6c-e763-471a-af32-3dcbf21553f3" />
 
 - **Train Loss**: Epoch이 증가할수록 손실은 지속적으로 감소합니다.
 - **Validation Loss**: 초반에는 감소하지만 어느 시점 이후 오히려 증가합니다.
