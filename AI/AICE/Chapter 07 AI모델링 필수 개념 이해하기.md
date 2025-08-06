@@ -142,6 +142,39 @@ AI 학습은 일반적으로 다음과 같은 **6단계**를 반복적으로 수
 | 모델 가중치 설정      | O        | X          | X    |
 | 모델 성능 평가        | X        | O          | O    |
 
+```python
+from sklearn.datasets import load_iris
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+# 1. 데이터 로드
+X, y = load_iris(return_X_y=True)
+
+# 2. train(60%) / validation(20%) / test(20%) 분할
+X_train_full, X_test, y_train_full, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+X_train, X_val, y_train, y_val = train_test_split(
+    X_train_full, y_train_full, test_size=0.25, random_state=42, stratify=y_train_full
+)  # 0.25 x 0.8 = 0.2
+
+# 3. 모델 학습 (훈련 데이터 사용)
+model = LogisticRegression(max_iter=200)
+model.fit(X_train, y_train)  # 학습 과정: Training dataset
+
+# 4. 검증 (Validation dataset으로 평가)
+val_preds = model.predict(X_val)
+val_acc = accuracy_score(y_val, val_preds)
+print(f"Validation Accuracy: {val_acc:.2f}")  # 모델 성능 평가: Validation dataset
+
+# 5. 테스트 (Test dataset으로 최종 평가)
+test_preds = model.predict(X_test)
+test_acc = accuracy_score(y_test, test_preds)
+print(f"Test Accuracy: {test_acc:.2f}")  # 모델 성능 평가: Test dataset
+```
+
 
 
 ## SECTION 04. 학습 데이터의 분할 방법 이해하기
