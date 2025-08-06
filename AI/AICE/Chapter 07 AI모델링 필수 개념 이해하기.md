@@ -144,16 +144,16 @@ AI 학습은 일반적으로 다음과 같은 **6단계**를 반복적으로 수
 
 
 
-# SECTION 04. 학습 데이터의 분할 방법 이해하기
+## SECTION 04. 학습 데이터의 분할 방법 이해하기
 
 ---
 
-## 1. 학습 데이터 분할하기 (train_test_split)
+### 1. 학습 데이터 분할하기 (train_test_split)
 
 - **사이킷런(sklearn)**의 `train_test_split` 함수를 사용하면 학습 데이터를 손쉽게 나눌 수 있습니다.
 - 전체 데이터를 직접 분할하기보다는 해당 함수를 활용하는 것이 효율적입니다.
 
-### 사용 예시
+#### 사용 예시
 ```python
 x_train, x_valid, y_train, y_valid = train_test_split(
     data, target, 
@@ -165,7 +165,7 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 )
 ```
 
-### 주요 파라미터
+#### 주요 파라미터
 - **test_size**: 테스트 데이터 비율 (0.0 ~ 1.0)
 - **train_size**: 학습 데이터 비율 (0.0 ~ 1.0)
 - **random_state**: 무작위 분할 시 시드값 고정
@@ -174,19 +174,19 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 
 ---
 
-### Stratify의 의미
+#### Stratify의 의미
 
 - `stratify=None`이면 데이터 불균형이 발생할 수 있음.
 - `stratify=target`을 사용하면 분할된 데이터에서도 원본의 클래스 분포가 유지됩니다.
 
-### 비교 예시
+#### 비교 예시
 
 | Stratify=None | Stratify=Target |
 |---------------|-----------------|
 | 클래스 불균형 발생 가능 | 클래스 비율 유지 |
 
 ---
-## 2. k-fold 교차 검증하기
+### 2. k-fold 교차 검증하기
 
 - 하나의 데이터셋을 여러 번 평가하여 성능 편차를 최소화함.
 - 주로 하이퍼파라미터 최적화 과정에서 사용됩니다.
@@ -223,7 +223,7 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 | k-fold CV         | 교차 검증 방식으로 모델 성능 평가 |
 
 
-## 3. 학습 과정을 시각화하여 과적합 확인
+### 3. 학습 과정을 시각화하여 과적합 확인
 
 - 학습 과정(Epochs)에서 **정확도(Accuracy)**와 **오차(Loss)**를 추적하여 과적합 여부를 확인합니다.
 - **과적합(Overfitting)**: 학습 데이터 성능은 높지만 검증 데이터 성능은 저하되는 현상.
