@@ -439,9 +439,7 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 
 - **정의**: 실제 값과 예측 값의 절대값 차이의 평균
 - **공식**:  
-  \[
-  MAE = \frac{1}{n} \sum_{i=1}^{n} | y_i - \hat{y}_i |
-  \]
+  MAE = (1 / n) × Σ | yᵢ - ŷᵢ |
 - **특징**:
   - 오차의 절대값만 반영 → **직관적**
   - 이상치(Outlier)에 **덜 민감**
@@ -453,9 +451,7 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 
 - **정의**: 실제 값과 예측 값의 차이를 제곱한 값의 평균
 - **공식**:  
-  \[
-  MSE = \frac{1}{n} \sum_{i=1}^{n} ( y_i - \hat{y}_i )^2
-  \]
+  MSE = (1 / n) × Σ (yᵢ - ŷᵢ)²
 - **특징**:
   - 큰 오차에 **패널티를 크게 부여**
   - 이상치에 **민감**
@@ -467,9 +463,7 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 
 - **정의**: MSE의 제곱근을 취한 값
 - **공식**:  
-  \[
-  RMSE = \sqrt{ \frac{1}{n} \sum_{i=1}^{n} ( y_i - \hat{y}_i )^2 }
-  \]
+  RMSE = √[(1 / n) × Σ (yᵢ - ŷᵢ)²]
 - **특징**:
   - **MSE의 단위 문제를 보완**
   - 오차의 단위를 실제 값과 **같게** 함
@@ -481,9 +475,7 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 
 - **정의**: 예측값이 실제값을 얼마나 잘 설명하는지를 나타내는 지표 (0~1 사이)
 - **공식**:  
-  \[
-  R^2 = 1 - \frac{SS_{res}}{SS_{tot}} = 1 - \frac{\sum (y_i - \hat{y}_i)^2}{\sum (y_i - \bar{y})^2}
-  \]
+  R^2 = 1 - [ Σ (yᵢ - ŷᵢ)² / Σ (yᵢ - ȳ)² ]
 - **특징**:
   - 1에 가까울수록 좋은 모델
   - 0이면 **무작위 평균 예측 수준**
