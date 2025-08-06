@@ -493,5 +493,87 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 | RMSE     | 큼             | 보통         | O          | 높음           |
 | R² Score | 상대 지표      | 보통         | 비율(%)    | 상황에 따라 다름 |
 
+---
+
+### 참고
+
+Learning Curve 기반 학습 전략 최적화 정리
+1. Learning Curve란?
+정의: 학습이 진행됨에 따라 모델의 성능(보통 오차 또는 정확도 등)이 훈련 데이터와 검증 데이터에서 어떻게 변화하는지를 시각화한 그래프
+
+축의 구성:
+
+X축: 학습 데이터 수(또는 에포크 수)
+
+Y축: 성능 지표 (오차, 정확도, loss 등)
+
+2. Learning Curve를 통해 확인할 수 있는 것
+구분	훈련 오류 (Training Loss)	검증 오류 (Validation Loss)	의미	대처 전략
+과소적합 (Underfitting)	높음	높음	모델이 너무 단순	- 더 복잡한 모델 사용
+- 더 오래 학습
+- 더 많은 특성 사용
+과적합 (Overfitting)	낮음	높음	훈련 데이터에 과도하게 적합	- 정규화(L1/L2)
+- Dropout
+- Early stopping
+- 데이터 증강
+적절한 학습	낮음	낮음	학습과 일반화가 잘 이루어짐	- 현재 상태 유지 또는 성능 향상을 위한 소폭 튜닝
+
+3. Typical Learning Curve 패턴
+과소적합
+
+훈련/검증 에러 모두 높고, 에러가 수렴하지 않음
+
+모델 용량이 부족하거나 충분히 학습하지 못함
+
+과적합
+
+훈련 에러는 낮지만, 검증 에러가 높고 벌어지는 경향
+
+일반화 성능이 낮음
+
+적절한 학습
+
+두 에러가 모두 낮고 일정 수준에서 수렴
+
+4. 학습 전략 최적화 시 고려 사항
+데이터 수가 적다면? → 데이터 증강 / 수집
+
+훈련 시간이 짧다면? → 에포크 수 증가, 학습률 조절
+
+학습 곡선이 진동/불안정하다면? → Learning Rate 감소, 배치 정규화
+
+성능이 plateau라면? → 새로운 특성 도입, 모델 구조 변경
+
+5. 관련 평가 지표
+학습 곡선과 함께 보는 주요 지표:
+
+Train Loss / Val Loss
+
+Accuracy
+
+Early Stopping 기준 (e.g., patience)
+
+Validation Curve: 하이퍼파라미터별 검증 성능 변화
+
+6. 예시 문제 풀이 전략
+질문이 “학습 곡선 상에서 어떤 전략이 적절한가?”라면:
+
+곡선 간 간격이 크면 과적합 → 일반화 기법 필요
+
+둘 다 높으면 과소적합 → 모델 복잡도 증가
+
+둘 다 낮고 안정 → 학습 완료, 추가 조치 불필요
+
+---
+
+### 챕터 7 연관 파일럿 문제
+<img width="807" height="733" alt="image" src="https://github.com/user-attachments/assets/7c05d11f-469c-4c6c-b240-579eb26cd5ec" />
+
+<img width="772" height="366" alt="image" src="https://github.com/user-attachments/assets/47a44cbf-4786-471c-b194-a9bfc54f29ff" />
+
+<img width="808" height="656" alt="image" src="https://github.com/user-attachments/assets/2c4694dd-f64b-4678-b1fe-fac8797e91a4" />
+
+<img width="792" height="776" alt="image" src="https://github.com/user-attachments/assets/0727ffcc-3767-42ef-bf47-fb736e38b815" />
+
 
 
