@@ -143,7 +143,7 @@ AI 학습은 일반적으로 다음과 같은 **6단계**를 반복적으로 수
 | 모델 성능 평가        | X        | O          | O    |
 
 
-```markdown
+
 # SECTION 04. 학습 데이터의 분할 방법 이해하기
 
 ---
@@ -221,7 +221,6 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 | Stratified Split  | 클래스 비율을 유지하며 데이터 분할 |
 | k-fold            | 모든 데이터를 학습 및 검증에 활용 |
 | k-fold CV         | 교차 검증 방식으로 모델 성능 평가 |
-```
 
 
 ## 3. 학습 과정을 시각화하여 과적합 확인
