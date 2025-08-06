@@ -268,5 +268,32 @@ x_train, x_valid, y_train, y_valid = train_test_split(
   <img width="567" height="455" alt="image" src="https://github.com/user-attachments/assets/d2b57cd9-bd00-4a2a-abbc-d8d357c9245d" />
 
 
+
+- **Train Loss**: Epoch이 증가할수록 손실은 지속적으로 감소합니다.
+- **Validation Loss**: 초반에는 감소하지만 어느 시점 이후 오히려 증가합니다.
+- **과적합 발생 시점**: Validation Loss가 증가하는 지점.
+
+---
+
+### 🧠 과적합이 발생하는 이유
+
+| 구분               | 설명 |
+|--------------------|------|
+| Train Dataset      | 모델이 직접 보고 학습한 데이터 → 반복할수록 정확도는 높아짐 |
+| Validation Dataset | 모델이 학습 중 보지 않았던 데이터 → 과하게 외운 경우 정확도 낮아짐 |
+| 과적합 발생 원인    | 모델이 학습 데이터를 너무 잘 외우다 보니, 새로운 데이터에 대해 일반화하지 못함 |
+
+---
+
+### 과적합 방지 및 대응 방법
+
+| 기법                | 설명 |
+|---------------------|------|
+| Early Stopping      | Validation Loss가 증가하면 학습 중단 |
+| Regularization      | L1, L2 정규화를 통해 과도한 가중치 제어 |
+| Dropout             | 일부 뉴런을 랜덤하게 제거하여 과적합 방지 |
+| Data Augmentation   | 학습 데이터를 증강하여 일반화 향상 |
+| 모델 단순화         | 파라미터 수를 줄여 모델 복잡도를 낮춤 |
+
 ---
 
