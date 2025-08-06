@@ -186,7 +186,7 @@ if num_cols:
 
 ---
 
-## 4) 특징 공학(Feature Engineering)
+## 4) 피처 엔지니어링(Feature Engineering)
 
 ### 4-1. 날짜/시간 파생
 ```python
