@@ -47,15 +47,18 @@ df.drop(columns=['A'])
 
 #### 3) 결측치 대체하기
 
-```python
-# 평균으로 대체
-mean_A = df['A'].mean()
-df['A'].fillna(mean_A, inplace=True)
-
-# 최빈값으로 대체
-mode_B = df['B'].mode()[0]
-df['B'].fillna(mode_B, inplace=True)
-```
+| 구분                                       | 설명                                    | 예시 코드                                                                                            |
+| ---------------------------------------- | ------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| **1. 평균(Mean) 대체**                       | 수치형 데이터에서 흔히 사용되며, 분포가 정규분포에 가까울 때 적절 | `df['A'].fillna(df['A'].mean(), inplace=True)`                                                   |
+| **2. 중앙값(Median) 대체**                    | 이상치가 많거나 비대칭 분포일 때 적절                 | `df['A'].fillna(df['A'].median(), inplace=True)`                                                 |
+| **3. 최빈값(Mode) 대체**                      | 범주형 변수 또는 discrete한 수치형 변수에 적합        | `df['B'].fillna(df['B'].mode()[0], inplace=True)`                                                |
+| **4. 고정값(Constant) 대체**                  | 결측값을 특정한 값으로 일괄 처리할 때 사용              | `df['C'].fillna(0, inplace=True)` 또는 `"Unknown"` 등                                               |
+| **5. 선형 보간법(Linear Interpolation)**      | 시간 순서가 있는 시계열 데이터에 적합                 | `df['A'].interpolate(method='linear', inplace=True)`                                             |
+| **6. 다항 보간법(Polynomial Interpolation)**  | 비선형 시계열에 적합, `order`에 차수 설정 필요        | `df['A'].interpolate(method='polynomial', order=2)`                                              |
+| **7. 전/후 값으로 대체(Forward/Backward Fill)** | 직전/직후의 값을 복사하여 채움. 시계열 데이터에 적합        | `df['A'].fillna(method='ffill', inplace=True)`<br>`df['A'].fillna(method='bfill', inplace=True)` |
+| **8. 그룹별 평균/중앙값 대체**                     | 범주형 그룹 단위로 평균/중앙값을 계산하여 결측값 채움        | `df['A'] = df.groupby('Group')['A'].transform(lambda x: x.fillna(x.mean()))`                     |
+| **9. 머신러닝 기반 예측 대체**                     | 다른 feature를 이용하여 회귀/분류 모델로 결측값 예측     | `KNNImputer`, `IterativeImputer` 등 사용                                                            |
+| **10. 다중 대체(Multiple Imputation)**       | 통계적으로 더 정교한 방법. 여러 번 대체 후 평균 등 계산     | `from fancyimpute import MICE` 등 사용                                                              |
 
 ---
 
