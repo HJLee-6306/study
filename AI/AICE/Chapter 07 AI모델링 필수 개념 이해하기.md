@@ -267,6 +267,9 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 - Train Loss ↓, Validation Loss ↑
 <img width="567" height="455" alt="image" src="https://github.com/user-attachments/assets/e9587e6c-e763-471a-af32-3dcbf21553f3" />
 
+<img width="1790" height="490" alt="image" src="https://github.com/user-attachments/assets/b8a4cbe0-5216-4957-b4a4-2d4fc0c21507" />
+
+
 - **Train Loss**: Epoch이 증가할수록 손실은 지속적으로 감소합니다.
 - **Validation Loss**: 초반에는 감소하지만 어느 시점 이후 오히려 증가합니다.
 - **과적합 발생 시점**: Validation Loss가 증가하는 지점.
