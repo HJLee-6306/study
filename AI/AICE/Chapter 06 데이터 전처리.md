@@ -62,50 +62,104 @@ df.drop(columns=['A'])
 
 ---
 
-### 3. 이상치 파악하기
+### 3. 이상치 파악하기 + 처리하기
 
-#### 1) z-score로 확인하기
+### 1. Z-score 방식
+
+#### 개념
+Z-score는 각 데이터가 평균에서 얼마나 떨어져 있는지를 표준편차 기준으로 나타낸 값입니다.
+
+공식:
+
+```
+z = (x - μ) / σ
+```
+
+- x: 개별 데이터
+- μ: 평균
+- σ: 표준편차
+
+Z-score의 절댓값이 3보다 크면 이상치로 간주합니다. (정규분포 가정)
+
+#### 코드 예시
 
 ```python
 from scipy.stats import zscore
-z_scores = zscore(df.select_dtypes(include='number'))
+
+# 수치형 데이터 선택
+numeric_df = df.select_dtypes(include='number')
+
+# Z-score 계산
+z_scores = zscore(numeric_df)
+
+# 이상치 탐지
 outliers = (abs(z_scores) > 3)
+
+# 이상치 포함 행 확인
+df[outliers.any(axis=1)]
 ```
 
-#### 2) IQR로 확인하기
-
-```python
-Q1 = df['A'].quantile(0.25)
-Q3 = df['A'].quantile(0.75)
-IQR = Q3 - Q1
-outliers = (df['A'] < Q1 - 1.5 * IQR) | (df['A'] > Q3 + 1.5 * IQR)
-```
+#### 특징
+- 정규분포를 가정함
+- 평균과 표준편차에 민감하여 극단값이 영향을 줄 수 있음
 
 ---
 
-### 4. 이상치 처리하기
+### 2. IQR 방식
 
-#### 1) 이상치 데이터 삭제하기 (Z-score 기준)
+#### 개념
+IQR(Interquartile Range)은 데이터의 중간 50% 범위를 나타냅니다.
 
-```python
-from scipy.stats import zscore
-df_z = df[(np.abs(zscore(df.select_dtypes(include='number'))) < 3).all(axis=1)]
+- Q1: 1사분위수 (25%)
+- Q3: 3사분위수 (75%)
+- IQR = Q3 - Q1
+
+이상치는 다음 범위를 벗어난 값입니다:
+
+```
+Lower bound = Q1 - 1.5 * IQR
+Upper bound = Q3 + 1.5 * IQR
 ```
 
-#### 2) 이상치 데이터 대체하기 (IQR 기준 함수)
+#### 단일 열 코드 예시
 
 ```python
-def replace_outliers_iqr(series):
-    Q1 = series.quantile(0.25)
-    Q3 = series.quantile(0.75)
+# 'A' 열의 이상치 탐지
+Q1 = df['A'].quantile(0.25)
+Q3 = df['A'].quantile(0.75)
+IQR = Q3 - Q1
+
+lower = Q1 - 1.5 * IQR
+upper = Q3 + 1.5 * IQR
+
+outliers = (df['A'] < lower) | (df['A'] > upper)
+
+# 이상치 행 확인
+df[outliers]
+```
+
+#### 전체 열 적용 예시
+
+```python
+outlier_indices = []
+
+for col in df.select_dtypes(include='number').columns:
+    Q1 = df[col].quantile(0.25)
+    Q3 = df[col].quantile(0.75)
     IQR = Q3 - Q1
-    lower_bound = Q1 - 1.5 * IQR
-    upper_bound = Q3 + 1.5 * IQR
-    median = series.median()
-    return series.apply(lambda x: median if x < lower_bound or x > upper_bound else x)
+    lower = Q1 - 1.5 * IQR
+    upper = Q3 + 1.5 * IQR
+    outlier_cond = (df[col] < lower) | (df[col] > upper)
+    outlier_indices.extend(df[outlier_cond].index)
 
-df['A'] = replace_outliers_iqr(df['A'])
+outlier_indices = list(set(outlier_indices))
+df.loc[outlier_indices]
 ```
+
+#### 특징
+- 정규분포 가정이 필요 없음
+- 평균과 표준편차에 영향받지 않음
+- 극단값에 덜 민감하며 비대칭 분포에도 적합
 
 ---
 
