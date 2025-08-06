@@ -265,5 +265,8 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 - Train Accuracy ↑, Validation Accuracy ↓
 - Train Loss ↓, Validation Loss ↑
 
+  <img width="567" height="455" alt="image" src="https://github.com/user-attachments/assets/d2b57cd9-bd00-4a2a-abbc-d8d357c9245d" />
+
+
 ---
 
