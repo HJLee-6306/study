@@ -264,6 +264,7 @@ x_train, x_valid, y_train, y_valid = train_test_split(
 ### 과적합 현상 예시
 - Train Accuracy ↑, Validation Accuracy ↓
 <img width="567" height="455" alt="image" src="https://github.com/user-attachments/assets/d2b57cd9-bd00-4a2a-abbc-d8d357c9245d" />
+
 - Train Loss ↓, Validation Loss ↑
 <img width="567" height="455" alt="image" src="https://github.com/user-attachments/assets/e9587e6c-e763-471a-af32-3dcbf21553f3" />
 
