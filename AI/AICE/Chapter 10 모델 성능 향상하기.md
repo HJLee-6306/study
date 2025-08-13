@@ -80,6 +80,81 @@ print("Best Params:", rand.best_params_)
 print("Best CV MAE:", -rand.best_score_)
 best_rf_rand = rand.best_estimator_
 ```
+---
+### Grid search vs Random search
+```python
+# grid search
+파라미터 후보 예:
+learning_rate = [0.01, 0.1, 1.0]
+max_depth = [3, 5, 7]
+
+→ 3 × 3 = 9개의 모든 조합 시도
+
+# random search
+위 범위나 분포에서 랜덤하게 일부 조합만 시도
+예: (0.1, 5), (1.0, 3), (0.01, 7) ...
+→ 탐색 횟수는 사용자가 지정 (예: 20회)
+```
+### 3. Bayesian Optimization
+
+# 베이지안 최적화 (Bayesian Optimization)
+
+베이지안 최적화는 **최적의 하이퍼파라미터를 효율적으로 찾기 위한 확률 기반 최적화 기법**입니다.  
+Grid Search나 Random Search보다 **적은 시도로** 좋은 값을 찾을 가능성이 높습니다.
+
+
+
+## 1. 핵심 아이디어
+- 이전 시도의 결과를 이용해, **다음 시도할 후보를 똑똑하게 선택**
+- 현재까지의 탐색 결과로 **확률 모델(Surrogate Model)**을 업데이트
+- 모델 예측을 바탕으로 **다음 탐색 위치**를 정하는 전략
+
+<img src="./image/Chapter10_bayesianoptimize.png" width="400"/>
+
+
+## 2. 동작 과정
+1. **탐색할 파라미터 공간 정의**  
+   예: `learning_rate ∈ [0.001, 0.1]`, `max_depth ∈ [3, 10]`
+2. **초기 샘플 선택 & 평가**  
+   보통 랜덤하게 몇 개 시도
+3. **확률 모델 학습**  
+   - 주로 **가우시안 프로세스(Gaussian Process, GP)** 사용
+   - 파라미터 조합 → 성능 점수 관계를 추정
+   - 각 조합 → 성능 점수(예: 정확도) 데이터를 GP로 학습.
+   - GP는 각 지점의 **평균 예측값(μ)**과 **불확실성(σ)**을 추정.
+4. **획득 함수(Acquisition Function)**로 다음 후보 결정 
+   - μ와 σ를 활용해 "다음 평가할 지점"을 선택.
+   - 예: Expected Improvement(EI), Upper Confidence Bound(UCB)
+   - **탐험**(Exploration)과 **활용**(Exploitation) 균형 조정
+   - 선택한 지점을 실제로 학습·평가 → GP에 다시 반영.
+5. **후보 실행 → 결과 반영 → 모델 업데이트**  
+   위 과정을 반복
+
+## 3. 장점
+- 적은 시도로도 최적값 근처를 빠르게 탐색
+- 평가 비용이 큰 문제(예: 딥러닝 모델 학습)에 효율적
+- Grid/Random Search 대비 자원 절약
+
+
+## 4. 단점
+- 고차원 파라미터 공간(20차원 이상)에서 성능 저하
+- 구현 복잡
+- 초반에 지역 최적해(Local Optimum)에 빠질 수 있음
+
+
+## 5. 비유
+- **Random Search**: 맛집 지도를 아무 데나 찍고 가본다
+- **Grid Search**: 지도를 일정한 격자로 나누어 전부 가본다
+- **베이지안 최적화**: 지금까지 가본 집 중 맛있었던 곳 근처를 더 가되, 가끔 안 가본 동네도 시도한다
+
+
+## 6. 활용 라이브러리
+- `scikit-optimize (skopt)`
+- `hyperopt`
+- `optuna`
+
+---
+
 
 ## Section 02. 머신러닝 모델링 및 하이퍼파라미터 튜닝 실습하기
 - 목표: 항공권 가격(연속값) 회귀 문제.

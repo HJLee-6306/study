@@ -139,6 +139,8 @@ plt.show()
 - **로지스틱 회귀(Logistic Regression)**는 종속변수가 **범주형**(이진 분류, 다중 분류)일 때 사용되는 지도학습 알고리즘입니다.
 - 선형 회귀와 달리 출력값을 0과 1 사이의 확률로 변환하기 위해 **시그모이드 함수**(Sigmoid Function)를 사용합니다.
 
+<img src="./image/Chapter08_Logistic_Regression.jpg" width="400"/>
+
 시그모이드 함수:
 $$
 \sigma(z) = \frac{1}{1 + e^{-z}}
@@ -229,6 +231,9 @@ print("정확도:", model.score(X, y))
 - 분류(Classification)와 회귀(Regression) 모두 가능하지만, 주로 분류 문제에서 많이 사용됩니다.
 - **루트 노드(root)**에서 시작해 조건에 따라 가지(branch)를 타고 내려가며, **리프 노드(leaf)**에서 최종 예측값을 산출합니다.
 
+<img src="./image/Chapter08_Dicision_Tree(1).png" width="400"/>
+<img src="./image/Chapter08_Dicision_Tree(2).png" width="400"/>
+<img src="./image/Chapter08_Dicision_Tree(3).png" width="400"/>
 ---
 
 #### 2) 기본 원리

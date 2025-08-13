@@ -10,6 +10,8 @@
 - 핵심 아이디어: 데이터의 **분산이 가장 큰 방향**을 찾고, 그 방향으로 축을 재설정
 - **선형 차원 축소 기법**
 
+<img src="./image/Chapter09_PCA(1).png" width="400"/>
+
 수학적 개념:
 1. 데이터 표준화
 2. 공분산 행렬 계산
@@ -57,6 +59,8 @@ print("설명된 분산 비율:", pca.explained_variance_ratio_)
 - **비선형 차원 축소** 기법 → 복잡한 데이터(이미지, 텍스트 임베딩 등)에 적합
 - 계산 비용이 크고 하이퍼파라미터(학습률, perplexity)에 민감
 
+<img src="./image/Chapter09_t-sne(1).png" width="400"/>
+
 #### 2) t-SNE 실습
 ```python
 from sklearn.manifold import TSNE
@@ -80,6 +84,8 @@ plt.show()
 - **비지도 학습**의 대표적인 군집화 알고리즘
 - 데이터 포인트를 K개의 클러스터로 나누고, 각 클러스터 중심(centroid)을 반복적으로 업데이트
 - 목적: 클러스터 내부의 **제곱 거리 합(SSE)** 최소화
+
+<img src="./image/Chapter09_kmeans.png" width="400"/>
 
 #### 2) 작동 과정
 1. K개의 초기 중심 무작위 선택
@@ -109,6 +115,9 @@ plt.show()
 - 높은 밀도의 데이터 포인트들은 같은 클러스터로 묶음
 - 장점: 클러스터 개수를 사전에 지정할 필요 없음, 임의 모양 클러스터 탐지 가능
 - 단점: eps, min_samples 하이퍼파라미터에 민감
+
+<img src="./image/Chapter09_dbscan.png" width="400"/>
+
 
 #### 2) 실습
 ```python
