@@ -154,6 +154,8 @@ Grid Search나 Random Search보다 **적은 시도로** 좋은 값을 찾을 가
 - `optuna`
 
 ---
+<img src="./image/pilot_16.png" width="600"/>
+---
 
 
 ## Section 02. 머신러닝 모델링 및 하이퍼파라미터 튜닝 실습하기
